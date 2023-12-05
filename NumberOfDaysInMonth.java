@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public class NumberOfDaysInMonth {
+    public static void main(String[] args) {
+        // Create a Scanner object to read input from the console
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt the user to enter the month and year
+        System.out.print("Enter the month (1-12): ");
+        int month = scanner.nextInt();
+
+        System.out.print("Enter the year: ");
+        int year = scanner.nextInt();
+
+        // Close the Scanner to avoid resource leak
+        scanner.close();
+
+        // Check if the entered month is valid
+        if (month < 1 || month > 12) {
+            System.out.println("Invalid month. Please enter a month between 1 and 12.");
+        } else {
+            // Determine the number of days in the entered month and year
+            int numberOfDays = getNumberOfDays(month, year);
+
+            // Display the result
+            System.out.println(getMonthName(month) + " " + year + " had " + numberOfDays + " days.");
+        }
+    }
+
+    // Method to get the number of days in a month
+    private static int getNumberOfDays(int month, int year) {
+        switch (month) {
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                return 31;
+            case 4: case 6: case 9: case 11:
+                return 30;
+            case 2:
+                // Check for leap year
+                return (isLeapYear(year)) ? 29 : 28;
+            default:
+                return -1; // Invalid month
+        }
+    }
+
+    // Method to check if a year is a leap year
+    private static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    // Method to get the name of a month
+    private static String getMonthName(int month) {
+        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"};
+
+        if (month >= 1 && month <= 12) {
+            return monthNames[month - 1];
+        } else {
+            return "Invalid Month";
+        }
+    }
+}
